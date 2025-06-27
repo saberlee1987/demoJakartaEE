@@ -32,6 +32,7 @@ public class HelloServlet extends HttpServlet {
 
         request.setAttribute("colors",colors);
         request.getRequestDispatcher("hello.jsp").forward(request,response);
+
 //        response.setContentType("text/html");
 
 //        // Hello
