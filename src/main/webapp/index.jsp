@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Main Page</title>
 </head>
 <body>
 <h3>Hello World</h3>
