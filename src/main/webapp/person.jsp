@@ -14,6 +14,7 @@
         <label for="nationalCode">nationalCode :</label> <input type="text" id="nationalCode"
                                                                 value="${person.nationalCode}" readonly><br>
         <label for="email">email :</label> <input type="text" id="email" value="${person.email}" readonly><br>
+        <label for="mobile">mobile :</label> <input type="text" id="mobile" value="${person.mobile}" readonly><br>
         <label for="createdDate">createdDate : </label><input type="text" id="createdDate"
                                                               value="${person.createdAt}" readonly><br>
         <label for="updateDate">updateDate : </label><input type="text" id="updateDate"

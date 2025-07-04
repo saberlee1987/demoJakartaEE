@@ -5,7 +5,12 @@
 </head>
 <body>
 <%--@elvariable id="persons" type="java.util.List<com.saber.demojavaee.models.Person>"--%>
+
 <h3>person information data</h3>
+<a href="${pageContext.request.contextPath}/person?action=savePerson">Add person</a><br>
+<c:if test="${param.message!=null}">
+    <h4 style="color: green">your person information added to db or changeIt</h4>
+</c:if>
 <c:if test="${persons!=null}">
     <c:if test="${persons!=null && persons.size() > 0}" >
         <table border="2">
@@ -19,6 +24,7 @@
                 <th>createdAt</th>
                 <th>updatedAt</th>
                 <th>View</th>
+                <th>Update</th>
             </tr>
             <c:forEach var="person" items="${persons}">
                 <tr>
@@ -30,6 +36,7 @@
                     <th>${person.email}</th>
                     <th>${person.createdAt}</th>
                     <th>${person.updatedAt}</th>
+                    <th><a href="${pageContext.request.contextPath}/person?action=updatePerson&id=${person.id}">update</a></th>
                     <th><a href="${pageContext.request.contextPath}/person?action=view&id=${person.id}">view</a></th>
                 </tr>
             </c:forEach>

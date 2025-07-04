@@ -1,5 +1,6 @@
 package com.saber.demojavaee.controllers;
 
+import com.saber.demojavaee.dto.PersonRequestDto;
 import com.saber.demojavaee.models.Person;
 import com.saber.demojavaee.services.PersonService;
 import com.saber.demojavaee.services.impl.PersonServiceImpl;
@@ -9,9 +10,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet(urlPatterns = "/person", displayName = "personServlet")
 public class PersonServlet extends HttpServlet {
@@ -37,11 +43,40 @@ public class PersonServlet extends HttpServlet {
             case "view":
                 viewPerson(request, response);
                 break;
+            case "savePerson":
+                showSavePerson(request, response);
+                break;
+            case "updatePerson":
+                showUpdatePerson(request, response);
+                break;
             default:
-                response.sendRedirect(request.getContextPath() + "/hello-servlet");
+                response.sendRedirect(request.getContextPath() + "/person");
                 break;
         }
 
+    }
+
+    private void showUpdatePerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idStr = request.getParameter("id");
+        if (idStr != null && !idStr.isEmpty() && idStr.matches("\\d+")) {
+            int id = Integer.parseInt(idStr);
+            Person person = personService.findById(id);
+            List<String> errors = new ArrayList<>();
+            PersonRequestDto personRequest = createPersonRequestPersonModel(person);
+            request.setAttribute("errors", errors);
+            request.setAttribute("personRequest", personRequest);
+            request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/person");
+        }
+    }
+
+    private void showSavePerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PersonRequestDto personRequestDto = new PersonRequestDto();
+        List<String> errors = new ArrayList<>();
+        request.setAttribute("errors", errors);
+        request.setAttribute("personRequest", personRequestDto);
+        request.getRequestDispatcher("createPerson.jsp").forward(request, response);
     }
 
     private void viewPerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,6 +99,111 @@ public class PersonServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null || action.isBlank()) {
+            action = "listPersons";
+        }
+        switch (action) {
+            case "savePerson":
+                savePerson(request, response);
+                break;
+            case "updatePerson":
+                updatePerson(request,response);
+                break;
+            default:
+                response.sendRedirect(request.getContextPath() + "/person");
+                break;
+        }
+    }
 
+    private void updatePerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PersonRequestDto personRequestFromRequest = createPersonRequestFromRequest(request);
+        String id = request.getParameter("id");
+        int idInt=0;
+        if (id == null || id.isBlank() || !id.matches("\\d+")) {
+            showPersons(request, response);
+            return;
+        } else {
+            idInt = Integer.parseInt(id);
+        }
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        Set<ConstraintViolation<PersonRequestDto>> violations = validator.validate(personRequestFromRequest);
+        List<String> errors = new ArrayList<>();
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<PersonRequestDto> violation : violations) {
+                errors.add(violation.getPropertyPath().toString() + " ===> " + violation.getMessage());
+            }
+            request.setAttribute("errors", errors);
+            request.setAttribute("personRequest", personRequestFromRequest);
+            request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
+        }else {
+            boolean existPerson = personService.existPerson(idInt);
+            if (!existPerson) {
+                errors.add("person by this nationalCode does not exist ");
+                request.setAttribute("errors", errors);
+                request.setAttribute("personRequest", personRequestFromRequest);
+                request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
+            } else {
+                boolean isDuplicated = personService.updatePerson(personRequestFromRequest, idInt);
+                if (isDuplicated) {
+                    errors.add("person by this nationalCode already exist ");
+                    request.setAttribute("errors", errors);
+                    request.setAttribute("personRequest", personRequestFromRequest);
+                    request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/person?message=success");
+                }
+            }
+        }
+    }
+
+    private void savePerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PersonRequestDto personRequestFromRequest = createPersonRequestFromRequest(request);
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        Set<ConstraintViolation<PersonRequestDto>> violations = validator.validate(personRequestFromRequest);
+        List<String> errors = new ArrayList<>();
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<PersonRequestDto> violation : violations) {
+                errors.add(violation.getPropertyPath().toString() + " ===> " + violation.getMessage());
+            }
+            request.setAttribute("errors", errors);
+            request.setAttribute("personRequest", personRequestFromRequest);
+            request.getRequestDispatcher("createPerson.jsp").forward(request, response);
+        } else {
+            boolean isDuplicated = personService.savePerson(personRequestFromRequest);
+            if (isDuplicated) {
+                errors.add("person by this nationalCode already exist ");
+                request.setAttribute("errors", errors);
+                request.setAttribute("personRequest", personRequestFromRequest);
+                request.getRequestDispatcher("createPerson.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/person?message=success");
+            }
+        }
+    }
+
+    private PersonRequestDto createPersonRequestFromRequest(HttpServletRequest request) {
+        PersonRequestDto personRequestDto = new PersonRequestDto();
+        personRequestDto.setFirstName(request.getParameter("firstName"));
+        personRequestDto.setLastName(request.getParameter("lastName"));
+        personRequestDto.setNationalCode(request.getParameter("nationalCode"));
+        String ageStr = request.getParameter("age");
+        if (ageStr != null && !ageStr.isBlank() && ageStr.matches("\\d+")) {
+            personRequestDto.setAge(Integer.parseInt(ageStr));
+        }
+        personRequestDto.setEmail(request.getParameter("email"));
+        personRequestDto.setMobile(request.getParameter("mobile"));
+        return personRequestDto;
+    }
+
+    private PersonRequestDto createPersonRequestPersonModel(Person person) {
+        PersonRequestDto personRequestDto = new PersonRequestDto();
+        personRequestDto.setFirstName(person.getFirstName());
+        personRequestDto.setLastName(person.getLastName());
+        personRequestDto.setNationalCode(person.getNationalCode());
+        personRequestDto.setAge(person.getAge());
+        personRequestDto.setEmail(person.getEmail());
+        personRequestDto.setMobile(person.getMobile());
+        return personRequestDto;
     }
 }
