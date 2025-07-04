@@ -16,17 +16,17 @@ public class Person {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "firstName")
+    @Column(name = "firstName",length = 70)
     private String firstName;
-    @Column(name = "lastName")
+    @Column(name = "lastName",length = 90)
     private String lastName;
-    @Column(name = "nationalCode")
+    @Column(name = "nationalCode",length = 10)
     private String nationalCode;
     @Column(name = "age")
     private Integer age;
-    @Column(name = "mobile")
+    @Column(name = "mobile",length = 11)
     private String mobile;
-    @Column(name = "email")
+    @Column(name = "email",length = 35)
     private String email;
     @Column(name = "createdAt")
     private LocalDateTime createdAt;

@@ -26,9 +26,9 @@ public class HelloServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         List<String> colors = new ArrayList<>();
-
+        //System.out.println("test ...........................");
         List<Person> persons = personRepository.findAll();
-        persons.forEach(System.out::println);
+      //  persons.forEach(System.out::println);
         colors.add("Red");
         colors.add("Green");
         colors.add("Blue");
@@ -40,6 +40,7 @@ public class HelloServlet extends HttpServlet {
         colors.add("Brown");
 
         request.setAttribute("colors",colors);
+        request.setAttribute("persons",persons);
         request.getRequestDispatcher("hello.jsp").forward(request,response);
     }
 
