@@ -19,34 +19,7 @@
         </c:forEach>
     </table>
 </c:if>
-<hr>
 <br>
-
-<c:if test="${persons!=null && persons.size() > 0}" >
-    <table border="2">
-        <tr>
-            <th>firstName</th>
-            <th>lastName</th>
-            <th>nationalCode</th>
-            <th>age</th>
-            <th>mobile</th>
-            <th>email</th>
-            <th>createdAt</th>
-            <th>updatedAt</th>
-        </tr>
-        <c:forEach var="person" items="${persons}">
-            <tr>
-                <th>${person.firstName}</th>
-                <th>${person.lastName}</th>
-                <th>${person.nationalCode}</th>
-                <th>${person.age}</th>
-                <th>${person.mobile}</th>
-                <th>${person.email}</th>
-                <th>${person.createdAt}</th>
-                <th>${person.updatedAt}</th>
-            </tr>
-        </c:forEach>
-    </table>
-</c:if>
+<a href="${pageContext.request.contextPath}/person">person page</a>
 </body>
 </html>

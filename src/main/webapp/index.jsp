@@ -6,6 +6,7 @@
 </head>
 <body>
 <h3>Hello World</h3>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="hello-servlet">Hello Servlet</a><br>
+<a href="${pageContext.request.contextPath}/person">person page</a>
 </body>
 </html>

@@ -30,6 +30,7 @@ public class PersonRepositoryImpl implements PersonRepository , Serializable {
 
     @Override
     public Person findById(Integer id) {
-        return null;
+        return queryFactory.selectFrom(person).where(person.id.eq(id))
+                .fetchOne();
     }
 }
