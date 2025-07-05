@@ -5,8 +5,8 @@ import com.saber.demojavaee.models.Person;
 import com.saber.demojavaee.models.QPerson;
 import com.saber.demojavaee.repositories.PersonRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,8 +19,9 @@ public class PersonRepositoryImpl implements PersonRepository, Serializable {
     private final QPerson person = new QPerson("person");
     private final JPAQueryFactory queryFactory;
 
-    public PersonRepositoryImpl() {
-        this.entityManager = Persistence.createEntityManagerFactory("saber66").createEntityManager();
+    public PersonRepositoryImpl(EntityManagerFactory entityManagerFactory) {
+//        this.entityManager = Persistence.createEntityManagerFactory("saber66").createEntityManager();
+        this.entityManager = entityManagerFactory.createEntityManager();
         queryFactory = new JPAQueryFactory(entityManager);
     }
 

@@ -5,6 +5,7 @@ import com.saber.demojavaee.models.Person;
 import com.saber.demojavaee.repositories.PersonRepository;
 import com.saber.demojavaee.repositories.impl.PersonRepositoryImpl;
 import com.saber.demojavaee.services.PersonService;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,8 +19,8 @@ public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
 
-    public PersonServiceImpl() {
-        personRepository = new PersonRepositoryImpl();
+    public PersonServiceImpl(EntityManagerFactory entityManagerFactory) {
+        personRepository = new PersonRepositoryImpl(entityManagerFactory);
     }
 
     @Override

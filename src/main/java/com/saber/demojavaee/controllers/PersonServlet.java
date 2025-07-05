@@ -1,10 +1,11 @@
 package com.saber.demojavaee.controllers;
 
+import com.github.mfathi91.time.PersianDate;
 import com.saber.demojavaee.dto.PersonRequestDto;
 import com.saber.demojavaee.models.Person;
 import com.saber.demojavaee.services.PersonService;
 import com.saber.demojavaee.services.impl.PersonServiceImpl;
-import jakarta.servlet.ServletConfig;
+import jakarta.persistence.Persistence;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -25,9 +27,8 @@ public class PersonServlet extends HttpServlet {
     private PersonService personService;
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        this.personService = new PersonServiceImpl();
+    public void init() {
+        this.personService = new PersonServiceImpl(Persistence.createEntityManagerFactory("saber66"));
     }
 
     @Override
@@ -93,6 +94,15 @@ public class PersonServlet extends HttpServlet {
 
     private void showPersons(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Person> personList = personService.findAll();
+        for (Person person : personList) {
+            person.setCreatedAtPersian(PersianDate.fromGregorian(person.getCreatedAt().toLocalDate())
+                    .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+            if (person.getUpdatedAt() != null) {
+                person.setUpdatedAtPersian(PersianDate.fromGregorian(person.getUpdatedAt().toLocalDate())
+                        .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+
+            }
+        }
         request.setAttribute("persons", personList);
         request.getRequestDispatcher("persons.jsp").forward(request, response);
     }

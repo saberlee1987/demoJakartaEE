@@ -32,6 +32,11 @@ public class Person {
     private LocalDateTime createdAt;
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
+    @Transient
+    private String createdAtPersian;
+
+    @Transient
+    private String updatedAtPersian;
 
     @PrePersist
     public void createdDate() {

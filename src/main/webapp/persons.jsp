@@ -34,8 +34,8 @@
                     <th>${person.age}</th>
                     <th>${person.mobile}</th>
                     <th>${person.email}</th>
-                    <th>${person.createdAt}</th>
-                    <th>${person.updatedAt}</th>
+                    <th>${person.createdAtPersian}</th>
+                    <th>${person.updatedAtPersian}</th>
                     <th><a href="${pageContext.request.contextPath}/person?action=updatePerson&id=${person.id}">update</a></th>
                     <th><a href="${pageContext.request.contextPath}/person?action=view&id=${person.id}">view</a></th>
                 </tr>
