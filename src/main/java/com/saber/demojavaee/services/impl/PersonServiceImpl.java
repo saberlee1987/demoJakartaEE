@@ -5,7 +5,12 @@ import com.saber.demojavaee.models.Person;
 import com.saber.demojavaee.repositories.PersonRepository;
 import com.saber.demojavaee.repositories.impl.PersonRepositoryImpl;
 import com.saber.demojavaee.services.PersonService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,31 +33,51 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public boolean savePerson(PersonRequestDto personRequestFromRequest) {
+    public void savePerson(PersonRequestDto personRequestFromRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String nationalCode = personRequestFromRequest.getNationalCode();
         Optional<Person> person = personRepository.findByNationalCode(nationalCode);
-        if (person.isPresent()){
-            return true;
+
+        if (person.isPresent()) {
+            List<String> errors = new ArrayList<>();
+            errors.add("person by this nationalCode already exist ");
+            request.setAttribute("errors", errors);
+            request.setAttribute("personRequest", personRequestFromRequest);
+            request.getRequestDispatcher("createPerson.jsp").forward(request, response);
+        } else {
+            Person newPerson = createPersonFromRequest(personRequestFromRequest);
+            personRepository.savePerson(newPerson);
+            response.sendRedirect(request.getContextPath() + "/person?message=success");
         }
-        Person newPerson = createPersonFromRequest(personRequestFromRequest);
-        personRepository.savePerson(newPerson);
-        return false;
     }
 
     @Override
-    public boolean updatePerson(PersonRequestDto personRequestFromRequest,int id) {
+    public void updatePerson(PersonRequestDto personRequestFromRequest,int id,
+                                HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<String> errors = new ArrayList<>();
+        boolean existPerson = existPerson(id);
+        if (!existPerson) {
+            errors.add("person by this nationalCode does not exist ");
+            request.setAttribute("errors", errors);
+            request.setAttribute("personRequest", personRequestFromRequest);
+            request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
+            return;
+        }
         String nationalCode = personRequestFromRequest.getNationalCode();
         Optional<Person> person = personRepository.findByNationalCode(nationalCode);
         if (person.isPresent() && !person.get().getId().equals(id)){
-            return true;
+            errors.add("person by this nationalCode already exist ");
+            request.setAttribute("errors", errors);
+            request.setAttribute("personRequest", personRequestFromRequest);
+            request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
+            return;
         }
         if (person.isPresent()) {
             Person personUpdate = person.get();
             createPersonFromRequest(personRequestFromRequest,personUpdate);
             personUpdate.setId(id);
             personRepository.updatePerson(personUpdate);
+            response.sendRedirect(request.getContextPath() + "/person?message=success");
         }
-        return false;
     }
 
     public boolean existPerson(int id) {

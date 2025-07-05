@@ -108,7 +108,7 @@ public class PersonServlet extends HttpServlet {
                 savePerson(request, response);
                 break;
             case "updatePerson":
-                updatePerson(request,response);
+                updatePerson(request, response);
                 break;
             default:
                 response.sendRedirect(request.getContextPath() + "/person");
@@ -117,47 +117,33 @@ public class PersonServlet extends HttpServlet {
     }
 
     private void updatePerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PersonRequestDto personRequestFromRequest = createPersonRequestFromRequest(request);
-        String id = request.getParameter("id");
-        int idInt=0;
-        if (id == null || id.isBlank() || !id.matches("\\d+")) {
-            showPersons(request, response);
-            return;
-        } else {
-            idInt = Integer.parseInt(id);
-        }
-        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        Set<ConstraintViolation<PersonRequestDto>> violations = validator.validate(personRequestFromRequest);
-        List<String> errors = new ArrayList<>();
-        if (!violations.isEmpty()) {
-            for (ConstraintViolation<PersonRequestDto> violation : violations) {
-                errors.add(violation.getPropertyPath().toString() + " ===> " + violation.getMessage());
-            }
-            request.setAttribute("errors", errors);
-            request.setAttribute("personRequest", personRequestFromRequest);
-            request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
-        }else {
-            boolean existPerson = personService.existPerson(idInt);
-            if (!existPerson) {
-                errors.add("person by this nationalCode does not exist ");
-                request.setAttribute("errors", errors);
-                request.setAttribute("personRequest", personRequestFromRequest);
-                request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
-            } else {
-                boolean isDuplicated = personService.updatePerson(personRequestFromRequest, idInt);
-                if (isDuplicated) {
-                    errors.add("person by this nationalCode already exist ");
-                    request.setAttribute("errors", errors);
-                    request.setAttribute("personRequest", personRequestFromRequest);
-                    request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/person?message=success");
-                }
-            }
+        Integer id = getIdFromRequest(request, response);
+        if (id == null) return;
+        PersonRequestDto personRequestFromRequest = validationRequest(request, response, "updatePerson.jsp");
+        if (personRequestFromRequest != null) {
+            personService.updatePerson(personRequestFromRequest, id, request, response);
         }
     }
 
+    private Integer getIdFromRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        Integer idInt = null;
+        if (id == null || id.isBlank() || !id.matches("\\d+")) {
+            showPersons(request, response);
+        } else {
+            idInt = Integer.parseInt(id);
+        }
+        return idInt;
+    }
+
     private void savePerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PersonRequestDto personRequestFromRequest = validationRequest(request, response, "createPerson.jsp");
+        if (personRequestFromRequest != null) {
+            personService.savePerson(personRequestFromRequest, request, response);
+        }
+    }
+
+    private PersonRequestDto validationRequest(HttpServletRequest request, HttpServletResponse response, String pageDispatcher) throws ServletException, IOException {
         PersonRequestDto personRequestFromRequest = createPersonRequestFromRequest(request);
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Set<ConstraintViolation<PersonRequestDto>> violations = validator.validate(personRequestFromRequest);
@@ -168,18 +154,10 @@ public class PersonServlet extends HttpServlet {
             }
             request.setAttribute("errors", errors);
             request.setAttribute("personRequest", personRequestFromRequest);
-            request.getRequestDispatcher("createPerson.jsp").forward(request, response);
-        } else {
-            boolean isDuplicated = personService.savePerson(personRequestFromRequest);
-            if (isDuplicated) {
-                errors.add("person by this nationalCode already exist ");
-                request.setAttribute("errors", errors);
-                request.setAttribute("personRequest", personRequestFromRequest);
-                request.getRequestDispatcher("createPerson.jsp").forward(request, response);
-            } else {
-                response.sendRedirect(request.getContextPath() + "/person?message=success");
-            }
+            request.getRequestDispatcher(pageDispatcher).forward(request, response);
+            return null;
         }
+        return personRequestFromRequest;
     }
 
     private PersonRequestDto createPersonRequestFromRequest(HttpServletRequest request) {
