@@ -87,7 +87,15 @@ public class PersonServlet extends HttpServlet {
         } else {
             Integer idInt = Integer.parseInt(id);
             Person person = personService.findById(idInt);
+            person.setCreatedAtPersian(PersianDate.fromGregorian(person.getCreatedAt().toLocalDate())
+                    .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+            if (person.getUpdatedAt() != null) {
+                person.setUpdatedAtPersian(PersianDate.fromGregorian(person.getUpdatedAt().toLocalDate())
+                        .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+
+            }
             request.setAttribute("person", person);
+            request.setAttribute("person2", person);
             request.getRequestDispatcher("person.jsp").forward(request, response);
         }
     }
