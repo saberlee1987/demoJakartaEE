@@ -12,4 +12,5 @@ public interface PersonRepository {
     void savePerson(Person person);
     void updatePerson(Person person);
 
+    void deletePersonById(Integer id);
 }

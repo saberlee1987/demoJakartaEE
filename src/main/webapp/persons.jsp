@@ -11,6 +11,12 @@
 <c:if test="${param.message!=null}">
     <h4 style="color: green">your person information added to db or changeIt</h4>
 </c:if>
+<c:if test="${param.deleted!=null}">
+    <h4 style="color: red">your person deleted from database</h4>
+</c:if>
+<c:if test="${param.notExist!=null}">
+    <h4 style="color: red">your person information notExist in database</h4>
+</c:if>
 <c:if test="${persons!=null}">
     <c:if test="${persons!=null && persons.size() > 0}" >
         <table border="2">
@@ -25,6 +31,7 @@
                 <th>updatedAt</th>
                 <th>View</th>
                 <th>Update</th>
+                <th>Delete</th>
             </tr>
             <c:forEach var="person" items="${persons}">
                 <tr>
@@ -38,6 +45,7 @@
                     <th>${person.updatedAtPersian}</th>
                     <th><a href="${pageContext.request.contextPath}/person?action=updatePerson&id=${person.id}">update</a></th>
                     <th><a href="${pageContext.request.contextPath}/person?action=view&id=${person.id}">view</a></th>
+                    <th><a href="${pageContext.request.contextPath}/person?action=delete&id=${person.id}">delete</a></th>
                 </tr>
             </c:forEach>
         </table>

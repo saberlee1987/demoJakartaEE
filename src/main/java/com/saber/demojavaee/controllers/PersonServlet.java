@@ -50,6 +50,9 @@ public class PersonServlet extends HttpServlet {
             case "updatePerson":
                 showUpdatePerson(request, response);
                 break;
+            case "delete":
+                deletePersonById(request,response);
+                break;
             default:
                 response.sendRedirect(request.getContextPath() + "/person");
                 break;
@@ -57,16 +60,36 @@ public class PersonServlet extends HttpServlet {
 
     }
 
+    private void deletePersonById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idStr = request.getParameter("id");
+        if (idStr != null && !idStr.isEmpty() && idStr.matches("\\d+")) {
+            int id = Integer.parseInt(idStr);
+            boolean existPerson = personService.existPerson(id);
+            if (existPerson) {
+                personService.deletePersonById(id,request,response);
+            }else {
+                response.sendRedirect(request.getContextPath() + "/person?notExist");
+            }
+        } else {
+            response.sendRedirect(request.getContextPath() + "/person");
+        }
+    }
+
     private void showUpdatePerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idStr = request.getParameter("id");
         if (idStr != null && !idStr.isEmpty() && idStr.matches("\\d+")) {
             int id = Integer.parseInt(idStr);
-            Person person = personService.findById(id);
-            List<String> errors = new ArrayList<>();
-            PersonRequestDto personRequest = createPersonRequestPersonModel(person);
-            request.setAttribute("errors", errors);
-            request.setAttribute("personRequest", personRequest);
-            request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
+            boolean existPerson = personService.existPerson(id);
+            if (!existPerson) {
+                response.sendRedirect(request.getContextPath() + "/person?notExist");
+            }else {
+                Person person = personService.findById(id);
+                List<String> errors = new ArrayList<>();
+                PersonRequestDto personRequest = createPersonRequestPersonModel(person);
+                request.setAttribute("errors", errors);
+                request.setAttribute("personRequest", personRequest);
+                request.getRequestDispatcher("updatePerson.jsp").forward(request, response);
+            }
         } else {
             response.sendRedirect(request.getContextPath() + "/person");
         }
@@ -86,9 +109,16 @@ public class PersonServlet extends HttpServlet {
             showPersons(request, response);
         } else {
             Integer idInt = Integer.parseInt(id);
+            boolean existPerson = personService.existPerson(idInt);
+            if (!existPerson) {
+                response.sendRedirect(request.getContextPath() + "/person?notExist");
+                return;
+            }
             Person person = personService.findById(idInt);
-            person.setCreatedAtPersian(PersianDate.fromGregorian(person.getCreatedAt().toLocalDate())
-                    .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+            if (person.getCreatedAt()!=null) {
+                person.setCreatedAtPersian(PersianDate.fromGregorian(person.getCreatedAt().toLocalDate())
+                        .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+            }
             if (person.getUpdatedAt() != null) {
                 person.setUpdatedAtPersian(PersianDate.fromGregorian(person.getUpdatedAt().toLocalDate())
                         .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
@@ -103,8 +133,10 @@ public class PersonServlet extends HttpServlet {
     private void showPersons(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Person> personList = personService.findAll();
         for (Person person : personList) {
-            person.setCreatedAtPersian(PersianDate.fromGregorian(person.getCreatedAt().toLocalDate())
-                    .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+            if (person.getCreatedAt() != null) {
+                person.setCreatedAtPersian(PersianDate.fromGregorian(person.getCreatedAt().toLocalDate())
+                        .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+            }
             if (person.getUpdatedAt() != null) {
                 person.setUpdatedAtPersian(PersianDate.fromGregorian(person.getUpdatedAt().toLocalDate())
                         .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));

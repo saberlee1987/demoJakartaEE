@@ -81,9 +81,15 @@ public class PersonServiceImpl implements PersonService {
         }
     }
 
-    public boolean existPerson(int id) {
+    public boolean existPerson(Integer id) {
           Person personExist = personRepository.findById(id);
         return personExist!=null;
+    }
+
+    @Override
+    public void deletePersonById(Integer id,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        personRepository.deletePersonById(id);
+        response.sendRedirect(request.getContextPath() + "/person?deleted=ok");
     }
 
     private Person createPersonFromRequest(PersonRequestDto personRequest){

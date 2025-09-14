@@ -14,5 +14,7 @@ public interface PersonService {
     Person findById(Integer id);
     void savePerson(PersonRequestDto personRequestFromRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException;
     void updatePerson(PersonRequestDto personRequestFromRequest,int id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-    boolean existPerson(int id);
+    boolean existPerson(Integer id);
+
+    void deletePersonById(Integer id,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException;
 }

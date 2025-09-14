@@ -60,4 +60,13 @@ public class PersonRepositoryImpl implements PersonRepository, Serializable {
         entityManager.persist(person);
         transaction.commit();
     }
+
+    @Override
+    public void deletePersonById(Integer id) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        Person person = entityManager.find(Person.class, id);
+        entityManager.remove(person);
+        transaction.commit();
+    }
 }
