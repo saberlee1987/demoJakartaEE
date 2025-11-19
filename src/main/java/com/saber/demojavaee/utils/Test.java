@@ -26,8 +26,10 @@ public class Test {
 
         // Currency examples
         BigDecimal salary = new BigDecimal("15000000.50");
+        BigDecimal salary2 = new BigDecimal("15000000.00");
         System.out.println("\nCurrency Example:");
         System.out.println(PersianNumberConverter.convertWithCurrency(salary, "ریال"));
+        System.out.println(PersianNumberConverter.convertWithCurrency(salary2, "ریال"));
 
         // Formatting examples
         System.out.println("\nFormatted Examples:");
