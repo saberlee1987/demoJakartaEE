@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
-import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -195,17 +195,18 @@ public class PersonServlet extends HttpServlet {
 
     private PersonRequestDto validationRequest(HttpServletRequest request, HttpServletResponse response, String pageDispatcher) throws ServletException, IOException {
         PersonRequestDto personRequestFromRequest = createPersonRequestFromRequest(request);
-        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        Set<ConstraintViolation<PersonRequestDto>> violations = validator.validate(personRequestFromRequest);
-        List<String> errors = new ArrayList<>();
-        if (!violations.isEmpty()) {
-            for (ConstraintViolation<PersonRequestDto> violation : violations) {
-                errors.add(violation.getPropertyPath().toString() + " ===> " + violation.getMessage());
+        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
+            Set<ConstraintViolation<PersonRequestDto>> violations =factory.getValidator().validate(personRequestFromRequest);
+            List<String> errors = new ArrayList<>();
+            if (!violations.isEmpty()) {
+                for (ConstraintViolation<PersonRequestDto> violation : violations) {
+                    errors.add(violation.getPropertyPath().toString() + " ===> " + violation.getMessage());
+                }
+                request.setAttribute("errors", errors);
+                request.setAttribute("personRequest", personRequestFromRequest);
+                request.getRequestDispatcher(pageDispatcher).forward(request, response);
+                return null;
             }
-            request.setAttribute("errors", errors);
-            request.setAttribute("personRequest", personRequestFromRequest);
-            request.getRequestDispatcher(pageDispatcher).forward(request, response);
-            return null;
         }
         return personRequestFromRequest;
     }
