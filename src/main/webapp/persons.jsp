@@ -51,7 +51,7 @@
         </span>
 
             <span>
-            Your person information was successfully added or changed.
+            اطلاعات شخص مورد نظر شما با موفقیت ثبت یا تغییر کرد.
         </span>
 
         </div>
@@ -68,7 +68,7 @@
         </span>
 
             <span>
-            Your person was successfully deleted from database.
+           اطلاعات شخصئ مورد نظر با موفقیت حذف شد.
         </span>
 
         </div>
@@ -85,7 +85,7 @@
         </span>
 
             <span>
-            Your person information does not exist in database.
+            اطلاعات شخص مورد نظر یافت نشد.
         </span>
 
         </div>
@@ -456,19 +456,19 @@
 
 
                     <h3>
-                        No Person Found
+                        شخصی یافت نشد
                     </h3>
 
 
                     <p>
-                        There is no person information available.
+                        شخصی برای نمایش وجود ندارد
                     </p>
 
 
                     <a class="add-button"
                        href="${pageContext.request.contextPath}/person?action=savePerson">
 
-                        + Add First Person
+                        + افزدن شخص جدید
 
                     </a>
 
