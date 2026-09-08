@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PersonRepository {
-    List<Person> findAll();
+    List<Person> findAll(Integer page,Integer size);
     Person findById(Integer id);
     Optional<Person> findByNationalCode(String nationalCode);
     void savePerson(Person person);
     void updatePerson(Person person);
 
     void deletePersonById(Integer id);
+
+    Long findCountAllPersons();
 }

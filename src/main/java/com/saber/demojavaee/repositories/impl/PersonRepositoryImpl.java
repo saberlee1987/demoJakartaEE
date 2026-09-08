@@ -26,10 +26,12 @@ public class PersonRepositoryImpl implements PersonRepository, Serializable {
     }
 
     @Override
-    public List<Person> findAll() {
+    public List<Person> findAll(Integer page,Integer size) {
 //        return entityManager.createNamedQuery("findAll",Person.class)
 //                .getResultList();
-        return queryFactory.selectFrom(person).fetch();
+        return queryFactory.selectFrom(person)
+                .offset((long) (page - 1) * size).limit(size)
+                .fetch();
     }
 
     @Override
@@ -68,5 +70,10 @@ public class PersonRepositoryImpl implements PersonRepository, Serializable {
         Person person = entityManager.find(Person.class, id);
         entityManager.remove(person);
         transaction.commit();
+    }
+
+    @Override
+    public Long findCountAllPersons() {
+        return queryFactory.select(person.id.count()).from(person).fetchOne();
     }
 }

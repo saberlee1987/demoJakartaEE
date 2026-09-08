@@ -131,8 +131,23 @@ public class PersonServlet extends HttpServlet {
     }
 
     private void showPersons(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Person> personList = personService.findAll();
-        for (Person person : personList) {
+        String pageStr = request.getParameter("page");
+        String sizeStr = request.getParameter("size");
+        int page = 1;
+        int size = 10;
+        if (pageStr !=null && !pageStr.isEmpty() && pageStr.matches("\\d+"))
+            page = Integer.parseInt(pageStr);
+        if (sizeStr!=null && !sizeStr.isEmpty() && sizeStr.matches("\\d+"))
+           size = Integer.parseInt(sizeStr);
+        Long totalElements = personService.findCountAllPersons();
+        int totalPages = (int) Math.ceil((double) totalElements / size);
+        // اگر page بیشتر از آخرین صفحه بود
+        if (totalPages > 0 && page > totalPages) {
+            page = totalPages;
+        }
+
+        List<Person> personList = personService.findAll(page,size);
+                for (Person person : personList) {
             if (person.getCreatedAt() != null) {
                 person.setCreatedAtPersian(PersianDate.fromGregorian(person.getCreatedAt().toLocalDate())
                         .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
@@ -143,7 +158,15 @@ public class PersonServlet extends HttpServlet {
 
             }
         }
+        int from = totalElements == 0 ? 0 : ((page - 1) * size) + 1;
+        int to = Math.min(page * size,totalElements.intValue());
+        request.setAttribute("from", from);
+        request.setAttribute("to", to);
         request.setAttribute("persons", personList);
+        request.setAttribute("totalElements",totalElements);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("pageSize", size);
+        request.setAttribute("totalPages", totalPages);
         request.getRequestDispatcher("persons.jsp").forward(request, response);
     }
 

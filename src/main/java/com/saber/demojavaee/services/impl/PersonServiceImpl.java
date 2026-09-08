@@ -24,8 +24,13 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<Person> findAll() {
-        return personRepository.findAll();
+    public List<Person> findAll(Integer page,Integer size) {
+        return personRepository.findAll(page,size);
+    }
+
+    @Override
+    public Long findCountAllPersons() {
+        return personRepository.findCountAllPersons();
     }
 
     @Override

@@ -1,55 +1,271 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 <head>
-    <title>person view page</title>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>مشاهده اطلاعات شخص</title>
+
+  <link rel="stylesheet"
+        href="${pageContext.request.contextPath}/css/application.css">
+
 </head>
+
 <body>
 <%--@elvariable id="person" type="com.saber.demojavaee.models.Person"--%>
-<jsp:useBean id="person2" class="com.saber.demojavaee.models.Person" scope="request"/>
-<label for="firstName">firstName : </label><input type="text" id="firstName"
-                                                  value="<jsp:getProperty name="person2" property="firstName"/>"
-                                                  readonly><br>
-<label for="lastName">lastName : </label><input type="text" id="lastName
-                                            value="<jsp:getProperty name="person2" property="lastName"/>" readonly/><br>
-<label for="age">age : </label><input type="text" id="age"
-                                      value="<jsp:getProperty name="person2" property="age"/>" readonly><br>
-<label for="nationalCode">nationalCode :</label> <input type="text" id="nationalCode"
-                                                        value="<jsp:getProperty name="person2" property="nationalCode"/>"
-                                                        readonly><br>
-<label for="email">email :</label> <input type="text" id="email"
-                                          value="<jsp:getProperty name="person2" property="email"/>"
-                                          readonly><br>
-<label for="mobile">mobile :</label> <input type="text" id="mobile"
-                                            value="<jsp:getProperty name="person2" property="mobile"/>"
-                                            readonly><br>
-<label for="createdDate">createdDate : </label><input type="text" id="createdDate"
-                                                      value="<jsp:getProperty name="person2" property="createdAtPersian"/>"
-                                                      readonly><br>
-<label for="updateDate">updateDate : </label><input type="text" id="updateDate"
-                                                    value="<jsp:getProperty name="person2" property="updatedAtPersian"/>"
-                                                    readonly><br><br>
-<hr>
-<c:choose>
-    <c:when test="${person!=null}">
-        <label for="firstName">firstName : </label><input type="text" id="firstName" value="${person.firstName}"
-                                                          readonly><br>
-        <label for="lastName">lastName : </label><input type="text" id="lastName" value="${person.lastName}"
-                                                        readonly><br>
-        <label for="age">age : </label><input type="text" id="age" value="${person.age}" readonly><br>
-        <label for="nationalCode">nationalCode :</label> <input type="text" id="nationalCode"
-                                                                value="${person.nationalCode}" readonly><br>
-        <label for="email">email :</label> <input type="text" id="email" value="${person.email}" readonly><br>
-        <label for="mobile">mobile :</label> <input type="text" id="mobile" value="${person.mobile}" readonly><br>
-        <label for="createdDate">createdDate : </label><input type="text" id="createdDate" value="${person.createdAtPersian}"
-                                                              readonly><br>
-        <label for="updateDate">updateDate : </label><input type="text" id="updateDate" value="${person.updatedAtPersian}"
-                                                            readonly><br>
-    </c:when>
-    <c:otherwise>
-        <h3>sorry person does not exist</h3>
-    </c:otherwise>
-</c:choose>
 
-<a href="${pageContext.request.contextPath}/person">person page</a>
+<div class="page-container">
+
+  <c:choose>
+
+    <c:when test="${person != null}">
+
+      <div class="page-header">
+
+        <div>
+
+          <h1>
+            اطلاعات شخص
+          </h1>
+
+          <p>
+            مشاهده جزئیات اطلاعات شخص
+          </p>
+
+        </div>
+
+        <a class="back-button"
+           href="${pageContext.request.contextPath}/person">
+
+          ←
+          بازگشت به لیست
+
+        </a>
+
+      </div>
+
+
+      <div class="person-card">
+
+        <div class="card-header">
+
+          <div class="avatar">
+
+              ${person.firstName.substring(0, 1)}
+
+          </div>
+
+          <div class="person-title">
+
+            <h2>
+
+                ${person.firstName}
+                ${person.lastName}
+
+            </h2>
+
+            <span>
+
+                        کد ملی:
+                        ${person.nationalCode}
+
+                    </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="information-grid">
+
+
+          <div class="information-item">
+
+                    <span class="information-label">
+                        نام
+                    </span>
+
+            <span class="information-value">
+
+                ${person.firstName}
+
+            </span>
+
+          </div>
+
+
+          <div class="information-item">
+
+                    <span class="information-label">
+                        نام خانوادگی
+                    </span>
+
+            <span class="information-value">
+
+                ${person.lastName}
+
+            </span>
+
+          </div>
+
+
+          <div class="information-item">
+
+                    <span class="information-label">
+                        سن
+                    </span>
+
+            <span class="information-value">
+
+                        ${person.age}
+
+                        <span class="unit">
+                            سال
+                        </span>
+
+                    </span>
+
+          </div>
+
+
+          <div class="information-item">
+
+                    <span class="information-label">
+                        کد ملی
+                    </span>
+
+            <span class="information-value ltr">
+
+                ${person.nationalCode}
+
+            </span>
+
+          </div>
+
+
+          <div class="information-item">
+
+                    <span class="information-label">
+                        شماره موبایل
+                    </span>
+
+            <span class="information-value ltr">
+
+                ${person.mobile}
+
+            </span>
+
+          </div>
+
+
+          <div class="information-item">
+
+                    <span class="information-label">
+                        ایمیل
+                    </span>
+
+            <span class="information-value ltr">
+
+                ${person.email}
+
+            </span>
+
+          </div>
+
+
+          <div class="information-item">
+
+                    <span class="information-label">
+                        تاریخ ایجاد
+                    </span>
+
+            <span class="information-value">
+
+                ${person.createdAtPersian}
+
+            </span>
+
+          </div>
+
+
+          <div class="information-item">
+
+                    <span class="information-label">
+                        آخرین ویرایش
+                    </span>
+
+            <span class="information-value">
+
+                ${person.updatedAtPersian}
+
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="card-footer">
+
+          <a class="edit-button"
+             href="${pageContext.request.contextPath}/person?action=updatePerson&id=${person.id}">
+
+            ویرایش اطلاعات
+
+          </a>
+
+
+          <a class="delete-button"
+             href="${pageContext.request.contextPath}/person?action=delete&id=${person.id}"
+             onclick="return confirm('آیا از حذف این شخص اطمینان دارید؟');">
+
+            حذف شخص
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </c:when>
+
+
+    <c:otherwise>
+
+      <div class="not-found-card">
+
+        <div class="not-found-icon">
+          !
+        </div>
+
+        <h2>
+          شخص مورد نظر پیدا نشد
+        </h2>
+
+        <p>
+          اطلاعات شخص مورد نظر در پایگاه داده وجود ندارد.
+        </p>
+
+        <a class="back-button"
+           href="${pageContext.request.contextPath}/person">
+
+          بازگشت به لیست اشخاص
+
+        </a>
+
+      </div>
+
+    </c:otherwise>
+
+  </c:choose>
+  
+
+</div>
+
 </body>
+
 </html>

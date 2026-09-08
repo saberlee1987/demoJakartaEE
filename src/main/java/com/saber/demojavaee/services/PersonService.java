@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.util.List;
 
 public interface PersonService {
-    List<Person> findAll();
+    List<Person> findAll(Integer page,Integer size);
+    Long findCountAllPersons();
     Person findById(Integer id);
     void savePerson(PersonRequestDto personRequestFromRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException;
     void updatePerson(PersonRequestDto personRequestFromRequest,int id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;

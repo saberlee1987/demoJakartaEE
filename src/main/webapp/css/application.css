@@ -1,0 +1,1839 @@
+/* =========================================================
+GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    direction: rtl;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+
+    
+    direction: rtl;
+
+    font-family:
+            Tahoma,
+            Arial,
+            Helvetica,
+            sans-serif;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #f5f7fa 0%,
+                    #eef2f7 100%
+            );
+
+    color: #263238;
+    
+
+}
+
+a {
+    text-decoration: none;
+}
+
+/* =========================================================
+MAIN CONTAINER
+========================================================= */
+
+.container,
+.page-container {
+    width: 95%;
+    max-width: 1600px;
+
+    
+    margin: 40px auto;
+    
+
+}
+
+/* =========================================================
+PAGE HEADER
+========================================================= */
+
+.page-header {
+    display: flex;
+
+    
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 22px 28px;
+
+    margin-bottom: 20px;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    box-shadow:
+            0 3px 15px rgba(0, 0, 0, 0.08);
+    
+
+}
+
+.page-header h1,
+.page-header h2 {
+    margin: 0 0 7px 0;
+
+    
+    color: #263238;
+    
+
+}
+
+.page-header h1 {
+    font-size: 28px;
+}
+
+.page-header h2 {
+    font-size: 24px;
+}
+
+.page-header p,
+.page-description {
+    margin: 0;
+
+    
+    color: #78909c;
+
+    font-size: 14px;
+    
+
+}
+
+/* =========================================================
+ADD BUTTON
+========================================================= */
+
+.add-button {
+    display: inline-flex;
+
+    
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 11px 18px;
+
+    background: #1976d2;
+
+    color: #ffffff;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    transition:
+            all 0.2s ease;
+    
+
+}
+
+.add-button:hover {
+    background: #125ca8;
+
+    
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+            0 4px 10px
+            rgba(25, 118, 210, 0.25);
+    
+
+}
+
+.button-icon {
+    font-size: 18px;
+
+    
+    font-weight: bold;
+    
+
+}
+
+/* =========================================================
+GENERAL BACK BUTTON
+========================================================= */
+
+.back-button {
+    display: inline-flex;
+
+    
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 11px 17px;
+
+    background: #ffffff;
+
+    border: 1px solid #d9e0e6;
+
+    border-radius: 8px;
+
+    color: #455a64;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    transition:
+            all 0.2s ease;
+    
+
+}
+
+.back-button:hover {
+    background: #1976d2;
+
+    
+    border-color: #1976d2;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+            0 4px 10px
+            rgba(25, 118, 210, 0.20);
+    
+
+}
+
+/* =========================================================
+MESSAGES
+========================================================= */
+
+.message {
+    display: flex;
+
+    
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 13px 18px;
+
+    margin-bottom: 20px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+    
+
+}
+
+.message-icon {
+    width: 23px;
+    height: 23px;
+
+    
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: #ffffff;
+    
+
+}
+
+/* Success */
+
+.success-message {
+    background: #e8f5e9;
+
+    
+    color: #2e7d32;
+
+    border-left: 5px solid #43a047;
+    
+
+}
+
+.success-message .message-icon {
+    background: #43a047;
+}
+
+/* Delete */
+
+.delete-message {
+    background: #e3f2fd;
+
+    
+    color: #1565c0;
+
+    border-left: 5px solid #1976d2;
+    
+
+}
+
+.delete-message .message-icon {
+    background: #1976d2;
+}
+
+/* Error */
+
+.error-message {
+    background: #ffebee;
+
+    
+    color: #c62828;
+
+    border-left: 5px solid #e53935;
+    
+
+}
+
+.error-message .message-icon {
+    background: #e53935;
+}
+
+/* =========================================================
+TABLE CARD
+========================================================= */
+
+.table-card {
+    width: 100%;
+
+    
+    padding: 22px;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    box-shadow:
+            0 3px 15px rgba(0, 0, 0, 0.08);
+    
+
+}
+
+/* =========================================================
+TABLE HEADER
+========================================================= */
+
+.table-header {
+    display: flex;
+
+    
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 18px;
+    
+
+}
+
+.table-header h3 {
+    margin: 0 0 5px 0;
+
+    
+    font-size: 19px;
+
+    color: #37474f;
+    
+
+}
+
+.record-count {
+    display: inline-block;
+
+    
+    color: #90a4ae;
+
+    font-size: 13px;
+    
+
+}
+
+.record-count strong {
+    color: #546e7a;
+}
+
+/* =========================================================
+PAGE SIZE
+========================================================= */
+
+.page-size-container {
+    display: flex;
+
+    
+    align-items: center;
+
+    gap: 8px;
+
+    color: #607d8b;
+
+    font-size: 14px;
+    
+
+}
+
+.page-size-container form {
+    margin: 0;
+    padding: 0;
+}
+
+.page-size-container select {
+    min-width: 70px;
+
+    
+    padding: 7px 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #cfd8dc;
+
+    border-radius: 6px;
+
+    color: #37474f;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    outline: none;
+    
+
+}
+
+.page-size-container select:focus {
+    border-color: #1976d2;
+
+    
+    box-shadow:
+            0 0 0 3px
+            rgba(25, 118, 210, 0.10);
+    
+
+}
+
+/* =========================================================
+TABLE
+========================================================= */
+
+.table-wrapper {
+    width: 100%;
+
+    
+    overflow-x: auto;
+
+    border-radius: 8px;
+    
+
+}
+
+table {
+    width: 100%;
+
+    
+    min-width: 1200px;
+
+    border-collapse: collapse;
+
+    direction: rtl;
+
+    background: #ffffff;
+    
+
+}
+
+thead {
+    background: #37474f;
+
+    
+    color: #ffffff;
+    
+
+}
+
+thead th {
+    padding: 14px 12px;
+
+    
+    text-align: center;
+
+    white-space: nowrap;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    border-bottom: 2px solid #263238;
+    
+
+}
+
+tbody td {
+    padding: 13px 12px;
+
+    
+    text-align: center;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #eceff1;
+
+    color: #455a64;
+
+    font-size: 13px;
+    
+
+}
+
+tbody tr {
+    transition: background 0.2s ease;
+}
+
+tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+tbody tr:hover,
+tbody tr:nth-child(even):hover {
+    background: #f1f6fa;
+}
+
+/* =========================================================
+LTR DATA
+========================================================= */
+
+.national-code,
+.mobile-number,
+.email {
+    direction: ltr;
+
+    
+    unicode-bidi: embed;
+
+    display: inline-block;
+    
+
+}
+
+.national-code {
+    font-family: "Courier New", monospace;
+
+    
+    letter-spacing: 1px;
+    
+
+}
+
+/* =========================================================
+ACTIONS
+========================================================= */
+
+.actions {
+    display: flex;
+
+    
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+    
+
+}
+
+.action-button {
+    display: inline-flex;
+
+    
+    align-items: center;
+    justify-content: center;
+
+    min-width: 58px;
+
+    padding: 7px 10px;
+
+    border-radius: 5px;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    transition:
+            all 0.2s ease;
+    
+
+}
+
+.action-button:hover {
+    color: #ffffff;
+
+    
+    transform: translateY(-1px);
+    
+
+}
+
+/* View */
+
+.view-button {
+    background: #0288d1;
+}
+
+.view-button:hover {
+    background: #01579b;
+}
+
+/* Update */
+
+.update-button {
+    background: #fb8c00;
+}
+
+.update-button:hover {
+    background: #ef6c00;
+}
+
+/* Delete */
+
+.delete-button {
+    background: #e53935;
+}
+
+.delete-button:hover {
+    background: #b71c1c;
+}
+
+/* =========================================================
+PAGINATION
+========================================================= */
+
+.pagination-container {
+    display: flex;
+
+    
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #e9ecef;
+    
+
+}
+
+.pagination-info {
+    color: #78909c;
+
+    
+    font-size: 13px;
+
+    white-space: nowrap;
+    
+
+}
+
+.pagination-info strong {
+    color: #546e7a;
+}
+
+.pagination {
+    display: flex;
+
+    
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    flex-wrap: wrap;
+    
+
+}
+
+.page-button {
+    min-width: 38px;
+    height: 38px;
+
+    
+    padding: 0 10px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #dee2e6;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #495057;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    transition:
+            all 0.2s ease;
+    
+
+}
+
+.page-button:hover {
+    background: #f1f5f9;
+
+    
+    border-color: #1976d2;
+
+    color: #1976d2;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+            0 2px 6px
+            rgba(0, 0, 0, 0.08);
+    
+
+}
+
+.page-button.active {
+    background: #1976d2;
+
+    
+    border-color: #1976d2;
+
+    color: #ffffff;
+
+    cursor: default;
+
+    box-shadow:
+            0 3px 8px
+            rgba(25, 118, 210, 0.30);
+    
+
+}
+
+.page-button.active:hover {
+    background: #1976d2;
+
+    
+    border-color: #1976d2;
+
+    color: #ffffff;
+
+    transform: none;
+    
+
+}
+
+.pagination .page-button:first-child,
+.pagination .page-button:last-child {
+    font-size: 20px;
+
+    
+    font-weight: normal;
+    
+
+}
+
+.pagination-dots {
+    min-width: 30px;
+
+    
+    height: 38px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #6c757d;
+
+    font-size: 14px;
+
+    user-select: none;
+    
+
+}
+
+/* =========================================================
+PERSON DETAILS CARD
+========================================================= */
+
+.person-card {
+    overflow: hidden;
+
+    
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    box-shadow:
+            0 5px 25px
+            rgba(0, 0, 0, 0.08);
+    
+
+}
+
+/* =========================================================
+PERSON CARD HEADER
+========================================================= */
+
+.card-header {
+    display: flex;
+
+    
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 28px;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #1976d2,
+                    #1565c0
+            );
+
+    color: #ffffff;
+    
+
+}
+
+/* =========================================================
+PERSON AVATAR
+========================================================= */
+
+.avatar {
+    width: 72px;
+    height: 72px;
+
+    
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+            rgba(255, 255, 255, 0.20);
+
+    border:
+            2px solid
+            rgba(255, 255, 255, 0.55);
+
+    font-size: 30px;
+
+    font-weight: bold;
+    
+
+}
+
+/* =========================================================
+PERSON TITLE
+========================================================= */
+
+.person-title h2 {
+    margin: 0 0 8px 0;
+
+    
+    font-size: 23px;
+    
+
+}
+
+.person-title span {
+    font-size: 13px;
+
+    
+    opacity: 0.90;
+    
+
+}
+
+/* =========================================================
+INFORMATION GRID
+========================================================= */
+
+.information-grid {
+    display: grid;
+
+    
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 0;
+
+    padding: 10px 25px;
+    
+
+}
+
+/* =========================================================
+INFORMATION ITEM
+========================================================= */
+
+.information-item {
+    min-height: 85px;
+
+    
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 17px 15px;
+
+    border-bottom: 1px solid #edf0f2;
+    
+
+}
+
+.information-item:nth-child(odd) {
+    border-left: 1px solid #edf0f2;
+}
+
+/* =========================================================
+INFORMATION LABEL
+========================================================= */
+
+.information-label {
+    margin-bottom: 8px;
+
+    
+    color: #90a4ae;
+
+    font-size: 12px;
+
+    font-weight: bold;
+    
+
+}
+
+/* =========================================================
+INFORMATION VALUE
+========================================================= */
+
+.information-value {
+    color: #263238;
+
+    
+    font-size: 15px;
+
+    font-weight: 600;
+
+    word-break: break-word;
+    
+
+}
+
+.unit {
+    margin-right: 4px;
+
+    
+    color: #90a4ae;
+
+    font-size: 12px;
+
+    font-weight: normal;
+    
+
+}
+
+/* =========================================================
+CARD FOOTER
+========================================================= */
+
+.card-footer {
+    display: flex;
+
+    
+    justify-content: flex-start;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 22px 28px;
+
+    background: #fafbfc;
+
+    border-top: 1px solid #edf0f2;
+    
+
+}
+
+/* =========================================================
+EDIT BUTTON
+========================================================= */
+
+.edit-button {
+    display: inline-flex;
+
+    
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 18px;
+
+    background: #fb8c00;
+
+    border-radius: 7px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    transition:
+            all 0.2s ease;
+    
+
+}
+
+.edit-button:hover {
+    background: #ef6c00;
+
+    
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+            0 4px 9px
+            rgba(251, 140, 0, 0.25);
+    
+
+}
+
+/* =========================================================
+DETAILS DELETE BUTTON
+========================================================= */
+
+.delete-button {
+    display: inline-flex;
+
+    
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 18px;
+
+    background: #e53935;
+
+    border-radius: 7px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    transition:
+            all 0.2s ease;
+    
+
+}
+
+.delete-button:hover {
+    background: #c62828;
+
+    
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+            0 4px 9px
+            rgba(229, 57, 53, 0.25);
+    
+
+}
+
+/* =========================================================
+EMPTY DATA
+========================================================= */
+
+.empty-message {
+    padding: 70px 20px;
+
+    
+    text-align: center;
+
+    color: #90a4ae;
+    
+
+}
+
+.empty-icon {
+    margin-bottom: 10px;
+
+    
+    font-size: 50px;
+    
+
+}
+
+.empty-message h3 {
+    margin: 10px 0;
+
+    
+    color: #546e7a;
+
+    font-size: 20px;
+    
+
+}
+
+.empty-message p {
+    margin: 0 0 25px;
+
+    
+    color: #90a4ae;
+
+    font-size: 14px;
+    
+
+}
+
+/* =========================================================
+NOT FOUND
+========================================================= */
+
+.not-found-card {
+    width: 100%;
+
+    
+    max-width: 600px;
+
+    margin: 80px auto;
+
+    padding: 50px 35px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    box-shadow:
+            0 5px 25px
+            rgba(0, 0, 0, 0.08);
+    
+
+}
+
+.not-found-icon {
+    width: 65px;
+    height: 65px;
+
+    
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ffebee;
+
+    color: #e53935;
+
+    font-size: 30px;
+
+    font-weight: bold;
+    
+
+}
+
+.not-found-card h2 {
+    margin: 0 0 12px;
+
+    
+    color: #37474f;
+
+    font-size: 21px;
+    
+
+}
+
+.not-found-card p {
+    margin: 0 0 28px;
+
+    
+    color: #90a4ae;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+    
+
+}
+
+/* =========================================================
+SCROLLBAR
+========================================================= */
+
+.table-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: #f1f3f4;
+
+    
+    border-radius: 10px;
+    
+
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: #b0bec5;
+
+    
+    border-radius: 10px;
+    
+
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #90a4ae;
+}
+
+/* =========================================================
+TABLET
+========================================================= */
+
+@media (max-width: 992px) {
+
+    
+    .container,
+    .page-container {
+    width: 96%;
+
+    margin: 25px auto;
+}
+
+    .table-card {
+        padding: 18px;
+    }
+
+    .page-header {
+        padding: 20px;
+    }
+
+    .pagination-container {
+        flex-direction: column;
+
+        align-items: center;
+    }
+    
+
+}
+
+/* =========================================================
+MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    
+    .container,
+    .page-container {
+    width: 95%;
+
+    margin: 20px auto;
+}
+
+    .page-header {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 18px;
+
+        text-align: center;
+    }
+
+    .page-header .add-button,
+    .page-header .back-button {
+        width: 100%;
+    }
+
+    .table-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .page-size-container {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+    .pagination-container {
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 15px;
+    }
+
+    .pagination-info {
+        white-space: normal;
+
+        text-align: center;
+    }
+
+    .pagination {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .page-button {
+        min-width: 35px;
+
+        height: 35px;
+
+        font-size: 13px;
+    }
+
+    .card-header {
+        padding: 22px;
+    }
+
+    .information-grid {
+        grid-template-columns: 1fr;
+
+        padding: 5px 20px;
+    }
+
+    .information-item:nth-child(odd) {
+        border-left: none;
+    }
+
+    .card-footer {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        padding: 20px;
+    }
+
+    .edit-button,
+    .delete-button {
+        width: 100%;
+    }
+    
+
+}
+
+/* =========================================================
+SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    
+    .container,
+    .page-container {
+    width: 94%;
+}
+
+    .table-card {
+        padding: 14px;
+    }
+
+    .page-header {
+        padding: 18px 15px;
+    }
+
+    .page-header h1 {
+        font-size: 23px;
+    }
+
+    .page-header h2 {
+        font-size: 21px;
+    }
+
+    .card-header {
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+    .avatar {
+        width: 65px;
+        height: 65px;
+
+        font-size: 27px;
+    }
+
+    .person-title h2 {
+        font-size: 20px;
+    }
+
+    .information-grid {
+        padding: 5px 15px;
+    }
+
+    .information-item {
+        padding: 15px 8px;
+    }
+
+    .pagination {
+        gap: 3px;
+    }
+
+    .page-button {
+        min-width: 32px;
+
+        height: 32px;
+
+        padding: 0 7px;
+
+        font-size: 12px;
+    }
+    
+
+}
+
+/* =========================================================
+   FORM CARD
+   ========================================================= */
+
+.form-card {
+    width: 100%;
+    max-width: 1000px;
+
+    margin: 0 auto;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+            0 5px 25px
+            rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   FORM HEADER
+   ========================================================= */
+
+.form-card-header {
+    padding: 24px 28px;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #1976d2,
+                    #1565c0
+            );
+
+    color: #ffffff;
+}
+
+.form-card-header h2 {
+    margin: 0 0 8px;
+
+    font-size: 21px;
+}
+
+.form-card-header p {
+    margin: 0;
+
+    font-size: 13px;
+
+    opacity: 0.9;
+}
+
+
+/* =========================================================
+   FORM CONTENT
+   ========================================================= */
+
+.form-card form {
+    padding: 28px;
+}
+
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns:
+            repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.form-group label {
+    color: #455a64;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.form-group input {
+    width: 100%;
+
+    height: 44px;
+
+    padding: 0 13px;
+
+    border: 1px solid #d5dce1;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #263238;
+
+    font-family:
+            Tahoma,
+            Arial,
+            sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+}
+
+
+/* =========================================================
+   INPUT PLACEHOLDER
+   ========================================================= */
+
+.form-group input::placeholder {
+    color: #b0bec5;
+}
+
+
+/* =========================================================
+   INPUT HOVER
+   ========================================================= */
+
+.form-group input:hover {
+    border-color: #90a4ae;
+}
+
+
+/* =========================================================
+   INPUT FOCUS
+   ========================================================= */
+
+.form-group input:focus {
+    border-color: #1976d2;
+
+    background: #ffffff;
+
+    box-shadow:
+            0 0 0 3px
+            rgba(25, 118, 210, 0.10);
+}
+
+
+/* =========================================================
+   LTR INPUT
+   ========================================================= */
+
+.ltr-input {
+    direction: ltr;
+
+    text-align: left;
+
+    unicode-bidi: embed;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+   ========================================================= */
+
+.form-actions {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 10px;
+
+    margin-top: 28px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #edf0f2;
+}
+
+
+/* =========================================================
+   SAVE BUTTON
+   ========================================================= */
+
+.save-button {
+    min-width: 150px;
+
+    height: 42px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #1976d2;
+
+    color: #ffffff;
+
+    font-family:
+            Tahoma,
+            Arial,
+            sans-serif;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+            all 0.2s ease;
+}
+
+.save-button:hover {
+    background: #125ca8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+            0 4px 10px
+            rgba(25, 118, 210, 0.25);
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+   ========================================================= */
+
+.cancel-button {
+    min-width: 110px;
+
+    height: 42px;
+
+    padding: 0 18px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid #cfd8dc;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #546e7a;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    transition:
+            all 0.2s ease;
+}
+
+.cancel-button:hover {
+    background: #f5f7f9;
+
+    border-color: #90a4ae;
+
+    color: #37474f;
+}
+
+
+/* =========================================================
+   VALIDATION ERRORS
+   ========================================================= */
+
+.validation-errors {
+    margin: 22px 28px 0;
+
+    padding: 15px 18px;
+
+    border-right: 4px solid #e53935;
+
+    border-radius: 8px;
+
+    background: #ffebee;
+
+    color: #c62828;
+}
+
+
+.validation-title {
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+.validation-errors ul {
+    margin: 0;
+
+    padding-right: 20px;
+}
+
+
+.validation-errors li {
+    margin-bottom: 5px;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+.validation-errors li:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   FORM RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .form-card {
+        width: 100%;
+    }
+
+    .form-card form {
+        padding: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .validation-errors {
+        margin: 20px 20px 0;
+    }
+
+    .form-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .save-button,
+    .cancel-button {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .form-card-header {
+        padding: 20px;
+    }
+
+    .form-card-header h2 {
+        font-size: 19px;
+    }
+
+    .form-card form {
+        padding: 16px;
+    }
+
+    .validation-errors {
+        margin: 16px 16px 0;
+    }
+
+}
